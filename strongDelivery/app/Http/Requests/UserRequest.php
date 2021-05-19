@@ -26,7 +26,10 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'name' => 'required|min:5|max:255',
+            'email' => 'required|email',
+            'tel' => 'numeric|min:10',
+            'pourcentage' => 'numeric',
         ];
     }
 
@@ -50,6 +53,9 @@ class UserRequest extends FormRequest
     public function messages()
     {
         return [
+            'name.required' => 'Le nom est obligatoire',
+             'tel.required' => 'Saisir un numéro de téléphone valide',
+             'email.required' => "L'adresse email est obligatoire",
             //
         ];
     }

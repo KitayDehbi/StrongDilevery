@@ -69,6 +69,7 @@ class Plat extends Model
             $public_destination_path = Str::replaceFirst('public/storage/', '', $destination_path);
             $this->attributes[$attribute_name] = $public_destination_path.'/'.$filename;
         }
+
     }
     /*
     |--------------------------------------------------------------------------

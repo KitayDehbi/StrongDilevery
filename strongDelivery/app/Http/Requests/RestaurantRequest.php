@@ -29,6 +29,7 @@ class RestaurantRequest extends FormRequest
              'nom' => 'required',
              'image' => 'required',
              'adresse' => 'required',
+             'user_id' => 'required',
 
 
 
@@ -57,7 +58,7 @@ class RestaurantRequest extends FormRequest
         return [
             'nom.required' => ' le nom est obligatoire',
              'image.required' => 'selectionner une image',
-             'adresse.required' => "l'dresse est obligatoire",
+             'adresse.required' => "l'adresse est obligatoire",
         ];
     }
 }

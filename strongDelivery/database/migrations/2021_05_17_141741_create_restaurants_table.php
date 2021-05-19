@@ -18,10 +18,13 @@ class CreateRestaurantsTable extends Migration
             $table->string('image');
             $table->string('nom');
             $table->string('adresse');
+            $table->string('phone');
             $table->string('description');
             $table->string('open_time');
             $table->string('close_time');
-            $table->unsignedInteger('user_id');
+            $table->double('longitude');
+            $table->double('latitude');
+            $table->integer('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

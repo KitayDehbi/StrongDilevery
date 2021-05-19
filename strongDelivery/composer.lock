@@ -218,10 +218,6 @@
                 "updivision",
                 "users roles admin"
             ],
-            "support": {
-                "issues": "https://github.com/Laravel-Backpack/PermissionManager/issues",
-                "source": "https://github.com/Laravel-Backpack/PermissionManager/tree/6.0.8"
-            },
             "time": "2021-05-10T05:40:35+00:00"
         },
         {
@@ -3012,10 +3008,6 @@
                 "security",
                 "spatie"
             ],
-            "support": {
-                "issues": "https://github.com/spatie/laravel-permission/issues",
-                "source": "https://github.com/spatie/laravel-permission/tree/4.0.1"
-            },
             "funding": [
                 {
                     "url": "https://github.com/spatie",

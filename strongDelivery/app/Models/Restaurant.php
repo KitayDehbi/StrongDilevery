@@ -71,11 +71,19 @@ class Restaurant extends Model
         }
     }
 
+    public function setProprietaireAttribute($value)
+    {
+
+    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function User()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /*
     |--------------------------------------------------------------------------
