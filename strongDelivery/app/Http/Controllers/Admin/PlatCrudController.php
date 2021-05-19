@@ -119,4 +119,19 @@ class PlatCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+
+    protected function setupShowOperation(){
+        CRUD::addColumn(
+            [
+            'label'=>'image',
+            'type' => 'image',
+            'name' => 'image',
+            'prefix' => '',
+            'height' => '80px',
+            'width' => '80px',
+            'disk' => 'public'
+            ]);
+        
+        CRUD::setFromDb();
+    }
 }

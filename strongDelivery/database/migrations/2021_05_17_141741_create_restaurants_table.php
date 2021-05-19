@@ -1,5 +1,6 @@
 <?php
 
+use Doctrine\DBAL\Schema\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -14,10 +15,13 @@ class CreateRestaurantsTable extends Migration
     {
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
-            $table->LONGTEXT('image');
+            $table->string('image');
             $table->string('nom');
             $table->string('adresse');
-            $table->string('proprietaire')->nullable();
+            $table->string('description');
+            $table->string('open_time');
+            $table->string('close_time');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
         });
     }
