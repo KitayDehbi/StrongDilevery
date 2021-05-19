@@ -14,10 +14,16 @@ class CreateRestaurantsTable extends Migration
     {
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
-            $table->LONGTEXT('image');
+            $table->string('image');
             $table->string('nom');
             $table->string('adresse');
-            $table->string('proprietaire')->nullable();
+            $table->string('phone');
+            $table->string('description');
+            $table->string('open_time');
+            $table->string('close_time');
+            $table->double('longitude');
+            $table->double('latitude');
+            $table->integer('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

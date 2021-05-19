@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class RestaurantRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,13 +26,10 @@ class RestaurantRequest extends FormRequest
     public function rules()
     {
         return [
-             'nom' => 'required',
-             'image' => 'required',
-             'adresse' => 'required',
-             'user_id' => 'required',
-
-
-
+            'name' => 'required|min:5|max:255',
+            'email' => 'required|email',
+            'tel' => 'numeric|min:10',
+            'pourcentage' => 'numeric',
         ];
     }
 
@@ -56,9 +53,10 @@ class RestaurantRequest extends FormRequest
     public function messages()
     {
         return [
-            'nom.required' => ' le nom est obligatoire',
-             'image.required' => 'selectionner une image',
-             'adresse.required' => "l'adresse est obligatoire",
+            'name.required' => ' le nom est obligatoire',
+             'tel.required' => 'Saisir une numéro de téléphone valide',
+             'email.required' => "l'adresse email est obligatoire",
+            //
         ];
     }
 }
