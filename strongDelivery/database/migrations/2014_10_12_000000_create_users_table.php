@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->default(bcrypt('12345678'));
             $table->string('tel')->nullable();
             // $table->string('role')->nullable();
             $table->enum('status',['active','inactive']);

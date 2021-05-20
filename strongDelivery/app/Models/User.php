@@ -11,7 +11,6 @@ use Spatie\Permission\Traits\HasRoles;// <---------------------- and this one
 
 class User extends Authenticatable
 {
-    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory, Notifiable;
     use CrudTrait; // <----- this
 

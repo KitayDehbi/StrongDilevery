@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\RestaurantRequest;
+use App\Http\Requests\TransactionRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class RestaurantCrudController
+ * Class TransactionCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class RestaurantCrudController extends CrudController
+class TransactionCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,10 +26,10 @@ class RestaurantCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Restaurant::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/restaurant');
-        CRUD::setEntityNameStrings('restaurant', 'restaurants');
-        
+        CRUD::setModel(\App\Models\Transaction::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/transaction');
+        CRUD::setEntityNameStrings('transaction', 'transactions');
+        CRUD::denyAccess(['update', 'create', 'delete']);
     }
 
     /**
@@ -40,39 +40,27 @@ class RestaurantCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        //CRUD::setFromDb(); // columns
-        CRUD::addColumn(
-            [
-            'label'=>'image',
-            'type' => 'image',
-            'name' => 'image',
-            'prefix' => '',
-            'height' => '80px',
-            'width' => '80px',
-            'disk' => 'public'
-            ]
-        );
-        CRUD::addColumn(
-            [
-            'label'=>'nom',
-            'type' => 'string',
-            'name' => 'nom',
-            ]
-        );
-        CRUD::addColumn(
-            [
-            'label'=>'Adresse',
-            'type' => 'string',
-            'name' => 'adresse',
-            ]
-        );
-        CRUD::addColumn(
-            [
-            'label'=>'Propiétaire',
-            'type' => 'string',
-            'name' => 'proprietaire',
-            ]
-        );
+
+        $this->crud->addClause('whereNull','date');
+        
+        $this->crud->addColumn([
+            'name' => 'User.name',
+            'label' => 'Utilisateur',
+            'type' => 'text',
+        ]);
+
+  
+        $this->crud->addColumn([
+            'name' => 'prix',
+            'label' => 'Montant',
+            'type' => 'text',
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'date',
+            'label' => 'Date de Transaction',
+            'type' => 'text',
+        ]);
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -88,21 +76,10 @@ class RestaurantCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(RestaurantRequest::class);
-        
-        $this->crud->addField([
-            'label' => "Image",
-            'name' => "image",
-            'type' => 'image',
-            'upload' => true,
-            'crop' => true, // set to true to allow cropping, false to disable
-            'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
-             'disk'      => 'public', // in case you need to show images from a different disk
-             //'prefix'    => 'public/images/resto_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
-        ]);
+        CRUD::setValidation(TransactionRequest::class);
 
         $this->crud->addField([  // Select2
-            'label'     => "Proprietaire",
+            'label'     => "Utilisateur",
             'type'      => 'select2',
             'name'      => 'user_id', // the db column for the foreign key
          
@@ -117,6 +94,7 @@ class RestaurantCrudController extends CrudController
                  return $query->orderBy('name', 'ASC')->get();
              }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select
          ],);
+        
         CRUD::setFromDb(); // fields
 
         /**
@@ -134,8 +112,6 @@ class RestaurantCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        
         $this->setupCreateOperation();
-        
     }
 }

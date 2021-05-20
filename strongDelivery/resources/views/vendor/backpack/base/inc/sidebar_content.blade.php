@@ -12,3 +12,4 @@
     </ul>
 </li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('commande') }}'><i class='nav-icon la la-question'></i> Commandes</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('transaction') }}'><i class='nav-icon la la-question'></i> Transactions</a></li>
