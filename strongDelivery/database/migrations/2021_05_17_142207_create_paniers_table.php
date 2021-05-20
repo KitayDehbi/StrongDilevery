@@ -14,15 +14,13 @@ class CreatePaniersTable extends Migration
     {
         Schema::create('paniers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            // $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('plat_id');
             $table->unsignedBigInteger('commande_id');
-            $table->foreign('user_id')->references('id')->
-            on('users')->onDelete('cascade');
-             $table->foreign('plat_id')->references('id')->
-             on('plats')->onDelete('cascade');
-            $table->foreign('commande_id')->references('id')->
-            on('commandes')->onDelete('cascade');
+            $table->integer('occurrence')->default(1);
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('plat_id')->references('id')->on('plats')->onDelete('cascade');
+            $table->foreign('commande_id')->references('id')->on('commandes')->onDelete('cascade');
 
             
             $table->timestamps();
