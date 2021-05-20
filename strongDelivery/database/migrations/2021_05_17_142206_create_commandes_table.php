@@ -14,14 +14,15 @@ class CreateCommandesTable extends Migration
     {
         Schema::create('commandes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');            
+            $table->unsignedBigInteger('client_id');            
+            $table->unsignedBigInteger('delivery_id');            
             $table->string('adresse');
             $table->double('total',8,2);
-            $table->date('date');
+            $table->timestamp('date');
             $table->string('type_de_paiment');
-            $table->string('statut');
-            $table->foreign('user_id')->references('id')->
-            on('users')->onDelete('cascade');
+            $table->enum('statut',['nouvelle', 'en cours', 'livré', 'Annuler']);
+            $table->integer('client_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('delivery_id')->nullable()->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
