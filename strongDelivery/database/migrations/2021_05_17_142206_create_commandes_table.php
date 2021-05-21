@@ -17,10 +17,10 @@ class CreateCommandesTable extends Migration
             $table->unsignedBigInteger('client_id');            
             $table->unsignedBigInteger('delivery_id')->nullable();            
             $table->string('adresse');
-            $table->double('total',8,2);
+            $table->double('total',8,2)->default(0);
             $table->timestamp('date');
             $table->string('type_de_paiment');
-            $table->enum('statut',['nouvelle', 'en cours', 'livré', 'Annuler']);
+            $table->enum('statut',['nouvelle', 'en cours', 'livré', 'annuler'])->default("nouvelle");
             $table->foreign('client_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('delivery_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

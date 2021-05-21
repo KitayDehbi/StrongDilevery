@@ -29,15 +29,41 @@ Route::group([
     });
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
 
 // Commands and Panier API 
 
-Route::group(['Middleware'=>'auth:api', 'prefix'=>'commands'], function () {
-    Route::get('notReserved/', [ApiCmdController::class, 'deliveryWaitingCmds'])->name('getWaitingCmds');
-    Route::get('reserveCmd/{cmd_id}', [ApiCmdController::class, 'reservCmd'])->name('getDeliveryWaitingCmds');
+Route::group(['middleware'=>'auth:api'], function () {
+
+    //Commands
+    Route::group(['prefix' => 'commands'], function() {
+        Route::get('notReserved/', [ApiCmdController::class, 'deliveryWaitingCmds'])->name('getWaitingCmds');
+        Route::get('reserve/{cmd_id}', [ApiCmdController::class, 'reservCmd'])->name('getDeliveryWaitingCmds');
+        Route::get('annuler/{cmd_id}', [ApiCmdController::class, 'annulerCmd']);
+        Route::get('dilevred/{cmd_id}', [ApiCmdController::class, 'dilevredCmd']);
+        Route::post('addCmd', [ApiCmdController::class, 'addCmd']);
+
+    });
+
+    //Panier
+    Route::group(['prefix' => 'panier'], function() {
+    Route::get('allByCmd/{cmd_id}', [ApiCmdController::class, 'allPanier']);
+    Route::get('delete/{panier_id}', [ApiCmdController::class, 'deletePanier']);
+    });
+    
+    //Plats
+    Route::group(['prefix' => 'plat'], function() {
+    Route::get('allByResto/{resto_id}', [ApiCmdController::class, 'allPlat']);
+    Route::get('get/{plat_id}', [ApiCmdController::class, 'platInfo']);
+    });
+    
+    //Resto
+    Route::group(['prefix' => 'resto'], function() {
+    Route::get('allResto', [ApiCmdController::class, 'allResto']);
+    Route::get('get/{resto_id}', [ApiCmdController::class, 'restoInfo']);
+    });
+
+
     // Route::get('delivery/{delivery_id}',"ApiCmdController@index")->name('getDeliveryWaitingCmds');
 });
 
